@@ -10,48 +10,44 @@ class Element {
     this.width = options.width;
     this.height = options.height;
     this.color = options.color;
-    this.speed = options.speed || 2;
+    this.speed = options.speed;
     this.gravity = options.gravity;
   }
 }
 
 //make ball bounce n shi
 function ballBounce() {
-  if (
-    ball.y + ball.gravity <= 0 ||
-    ball.y + ball.gravity >= canvas.height - 15
-  ) {
+  if (ball.y + ball.gravity <= 0 || ball.y + ball.gravity >= canvas.height - 15) {
     ball.gravity = ball.gravity * -1;
     ball.y += ball.gravity;
     ball.x += ball.speed;
-  } else {
+    } 
+  else {
     ball.y += ball.gravity;
     ball.x += ball.speed;
-  }
+    }
   ballWallCollision();
 }
 
 //detect collision
 function ballWallCollision() {
-  if (
-    ball.x + ball.speed <= 0 ||
-    ball.x + ball.speed + ball.width >= canvas.width
-  ) {
-    ball.y += ball.gravity;
-    ball.speed = ball.speed * -1;
-    ball.x += ball.speed;
-  } else {
-    ball.y += ball.gravity;
-    ball.x += ball.speed;
+  if (ball.x + ball.speed <= 0 || ball.x + ball.speed + ball.width >= canvas.width) {
+    ball.y += ball.gravity
+    ball.speed = ball.speed * -1
+    ball.x += ball.speed
+  } 
+  else {
+    ball.y += ball.gravity
+    ball.x += ball.speed
   }
   drawElements();
 }
 
 function drawElements() {
-  context.clearRect(0, 0, canvas.width, canvas.height);
-  drawElement(playerOne);
-  drawElement(playerTwo);
-  drawElement(ball);
+  context.clearRect(0, 0, canvas.width, canvas.height)
+  drawElement(playerOne)
+  drawElement(playerTwo)
+  drawElement(ball)
 }
 
 //player 1
@@ -61,8 +57,8 @@ const playerOne = new Element({
   width: 15,
   height: 80,
   color: "#fff",
-  gravity: 2,
-});
+  gravity: 6,
+})
 
 //player 2
 const playerTwo = new Element({
@@ -71,8 +67,8 @@ const playerTwo = new Element({
   width: 15,
   height: 80,
   color: "#fff",
-  gravity: 2,
-});
+  gravity: 6,
+})
 
 //ball
 const ball = new Element({
@@ -83,19 +79,21 @@ const ball = new Element({
   color: "#20C20E",
   speed: 8,
   gravity: 4,
-});
+})
 
 function bounce() {
   if (ball.y + ball.gravity <= 0 || ball.y + ball.gravity >= canvas.height) {
     ball.gravity = ball.gravity * -1;
     ball.y += ball.gravity;
     ball.x += ball.speed;
-  } else {
+  } 
+  else {
     ball.y += ball.gravity;
     ball.x += ball.speed;
   }
   collision();
 }
+
 // change to opposite direction if hit function
 function collision() {
   if (
@@ -139,7 +137,6 @@ function doKeyDown(e) {
     playerOne.y + playerOne.height + playerOne.gravity < canvas.height
   )
     playerOne.y += playerOne.gravity * 4;
-
   if (key == "i" && playerTwo.y - playerTwo.gravity > 0)
     playerTwo.y -= playerTwo.gravity * 4;
   else if (
@@ -159,14 +156,12 @@ function ballWallCollision() {
   ) {
     ball.speed = ball.speed * -1;
   } else if (ball.x + ball.speed < playerOne.x) {
-    scoreTwo += 1;
     ball.speed = ball.speed * -1;
-    ball.x = 100 + ball.speed;
+    ball.x = canvas.width / 2 + ball.speed;
     ball.y += ball.gravity;
   } else if (ball.x + ball.speed > playerTwo.x + playerTwo.width) {
-    scoreOne += 1;
     ball.speed = ball.speed * -1;
-    ball.x = 100 + ball.speed;
+    ball.x = canvas.width / 2 + ball.speed;
     ball.y += ball.gravity;
   }
   drawElements();
